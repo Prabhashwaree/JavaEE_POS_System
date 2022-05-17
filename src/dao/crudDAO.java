@@ -1,4 +1,5 @@
 package dao;
 
-public class crudDAO {
+public class crudDAO{
+
 }
