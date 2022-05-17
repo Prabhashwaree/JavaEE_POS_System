@@ -13,11 +13,11 @@ import java.io.PrintWriter;
 public class customerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("testing.........");
-
-        String method = req.getMethod();
-        System.out.println("Request Method is "+method);
-        PrintWriter writer = resp.getWriter();
-        writer.write("Response from Customer Servlet Generated");
+//        System.out.println("testing.........");
+//
+//        String method = req.getMethod();
+//        System.out.println("Request Method is "+method);
+//        PrintWriter writer = resp.getWriter();
+//        writer.write("Response from Customer Servlet Generated");
     }
 }
