@@ -18,7 +18,7 @@ public class customerBOImpl implements customerBO {
 
     @Override
     public JsonArrayBuilder getAllCustomer() throws SQLException, ClassNotFoundException {
-
+        return cusDAOImpl.getAll();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class customerBOImpl implements customerBO {
 
     @Override
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
-        return false;
+       return cusDAOImpl.delete(id);
     }
 
     @Override

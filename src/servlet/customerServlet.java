@@ -5,10 +5,7 @@ import bo.custom.customerBO;
 import dto.customerDTO;
 
 import javax.annotation.Resource;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +26,24 @@ public class customerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        PrintWriter writer = resp.getWriter();
 
+        try {
+            JsonArrayBuilder jsonArrayBuilder = cusBO.getAllCustomer();
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+
+            objectBuilder.add("status",200);
+            objectBuilder.add("message","done");
+
+            objectBuilder.add("data",jsonArrayBuilder.build());
+            writer.print(objectBuilder.build());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -133,5 +147,15 @@ public class customerServlet extends HttpServlet {
             writer.print(jsonObjectBuilder.build());
         }
 
+    }
+
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String custID = req.getParameter("Cus_ID");
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        if()
     }
 }

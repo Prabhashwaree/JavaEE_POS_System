@@ -42,7 +42,16 @@ public class customerDAOImpl implements customerDAO {
 
     @Override
     public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+        Connection connection = customerServlet.dataSource.getConnection();
+
+        if(connection.prepareStatement("DELETE FROM Customer WHERE CustID ='"+s+"'").executeUpdate()>0){
+            connection.close();
+            return true;
+
+        }else {
+            return false;
+        }
+
     }
 
     @Override
