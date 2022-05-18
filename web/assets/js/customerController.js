@@ -213,6 +213,7 @@ function saveCustomer(){
     $.ajax({
         url: "customer",
         method:"POST",
+      data:data,
         success:function (add){
             alert(add);
             loadAllCustomer();

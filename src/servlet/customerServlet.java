@@ -4,6 +4,7 @@ import bo.BOFactory;
 import bo.custom.customerBO;
 import dto.customerDTO;
 
+import javax.annotation.Resource;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +20,9 @@ import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/customer")
 public class customerServlet extends HttpServlet {
+    @Resource(name = "java:comp/env/jdbc/pool")
+    public static DataSource dataSource;
+
     private final customerBO cusBO = (customerBO) BOFactory.getBOFactory().getBO(BOFactory.BoTypes.CUSTOMER);
 
     @Override
@@ -27,13 +32,19 @@ public class customerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String custID = req.getParameter("CustID");
+        String custID = req.getParameter("Cus_ID");
         String custName = req.getParameter("CustName");
         String custAddress = req.getParameter("CustAddress");
         String salary = req.getParameter("Salary");
 
+        System.out.println(custID);
+        System.out.println(custName);
+        System.out.println(custAddress);
+        System.out.println(salary);
+
+
         PrintWriter writer = resp.getWriter();
-        customerDTO cusDTO = new customerDTO(custID,custName,custAddress,salary);
+        customerDTO cusDTO = new customerDTO(custID,custName,custAddress,Double.parseDouble(salary));
 
         resp.setContentType("application/json");
 

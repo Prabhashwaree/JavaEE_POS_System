@@ -4,18 +4,17 @@ public class customerDTO {
     private String CustID;
     private String CustName;
     private String CustAddress;
-    private String Salary;
+    private double Salary;
 
     public customerDTO() {
     }
 
-    public customerDTO(String custID, String custName, String custAddress, String salary) {
+    public customerDTO(String custID, String custName, String custAddress, double salary) {
         setCustID(custID);
         setCustName(custName);
         setCustAddress(custAddress);
         setSalary(salary);
     }
-
 
     public String getCustID() {
         return CustID;
@@ -41,11 +40,11 @@ public class customerDTO {
         CustAddress = custAddress;
     }
 
-    public String getSalary() {
+    public double getSalary() {
         return Salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(double salary) {
         Salary = salary;
     }
 
@@ -55,7 +54,7 @@ public class customerDTO {
                 "CustID='" + CustID + '\'' +
                 ", CustName='" + CustName + '\'' +
                 ", CustAddress='" + CustAddress + '\'' +
-                ", Salary='" + Salary + '\'' +
+                ", Salary=" + Salary +
                 '}';
     }
 }

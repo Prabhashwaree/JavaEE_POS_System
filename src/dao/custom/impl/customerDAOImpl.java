@@ -2,35 +2,40 @@ package dao.custom.impl;
 
 import dao.custom.customerDAO;
 import entity.customer;
+import servlet.customerServlet;
 
-import javax.annotation.Resource;
+
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
-import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class customerDAOImpl implements customerDAO {
 
-    @Resource(name = "java:comp/env/jdbc/pool")
-    DataSource ds;
-
     @Override
-    public boolean add(customer customer) throws SQLException, ClassNotFoundException {
+    public boolean add(customer c) throws SQLException, ClassNotFoundException {
 
-        Connection connection = ds.getConnection();
+        Connection connection = customerServlet.dataSource.getConnection();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer VALUES ?,?,?,?");
-        preparedStatement.setObject(1,customer.getCustID());
-        preparedStatement.setObject(2,customer.getCustName());
-        preparedStatement.setObject(3,customer.getCustAddress());
-        preparedStatement.setObject(4,customer.getSalary());
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?)");
+        preparedStatement.setString(1,c.getCustID());
+        preparedStatement.setString(2,c.getCustName());
+        preparedStatement.setString(3,c.getCustAddress());
+        preparedStatement.setDouble(4,c.getSalary());
 
-        preparedStatement.executeUpdate();
-        connection.close();
+        System.out.println(c.getCustID());
+        System.out.println(c.getCustName());
+        System.out.println(c.getCustAddress());
+        System.out.println(c.getSalary());
 
-        return preparedStatement.executeUpdate()>0;
+        if(preparedStatement.executeUpdate()>0){
+            connection.close();
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override

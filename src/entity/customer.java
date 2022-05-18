@@ -4,18 +4,17 @@ public class customer {
     private String CustID;
     private String CustName;
     private String CustAddress;
-    private String Salary;
+    private double Salary;
 
     public customer() {
     }
 
-    public customer(String custID, String custName, String custAddress, String salary) {
+    public customer(String custID, String custName, String custAddress, double salary) {
         setCustID(custID);
         setCustName(custName);
         setCustAddress(custAddress);
         setSalary(salary);
     }
-
 
     public String getCustID() {
         return CustID;
@@ -41,11 +40,11 @@ public class customer {
         CustAddress = custAddress;
     }
 
-    public String getSalary() {
+    public double getSalary() {
         return Salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(double salary) {
         Salary = salary;
     }
 }
