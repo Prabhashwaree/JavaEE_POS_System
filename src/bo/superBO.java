@@ -1,4 +1,4 @@
 package bo;
 
-public class superBO {
+public interface superBO {
 }

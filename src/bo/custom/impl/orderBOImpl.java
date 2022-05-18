@@ -1,4 +1,6 @@
 package bo.custom.impl;
 
-public class orderBOImpl {
+import bo.custom.orderBO;
+
+public class orderBOImpl implements orderBO {
 }

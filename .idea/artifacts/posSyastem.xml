@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="javaEE">
-    <output-path>$PROJECT_DIR$/out/artifacts/javaEE</output-path>
-    <root id="archive" name="javaEE.war">
+  <artifact type="war" name="posSyastem">
+    <output-path>$PROJECT_DIR$/out/artifacts/posSyastem</output-path>
+    <root id="archive" name="posSyastem.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="JavaEE_POS_Final_Project" />
@@ -11,7 +11,6 @@
           <element id="library" level="project" name="mysql-connector-java-8.0.25" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="JavaEE_POS_Final_Project/web/Web" />
     </root>
   </artifact>
 </component>

@@ -198,16 +198,28 @@ function seachCustomer(id){
 
 
 function saveCustomer(){
-    var customerId =  $("#txtCustomerId").val();
-    var customerName=   $("#txtCustomerName").val();
-    var customerAddress =  $("#txtCustomerAddress").val();
-    var customerSalary =  $("#txtCustomerSalary").val();
+    // var customerId =  $("#txtCustomerId").val();
+    // var customerName=   $("#txtCustomerName").val();
+    // var customerAddress =  $("#txtCustomerAddress").val();
+    // var customerSalary =  $("#txtCustomerSalary").val();
+    //
+    //
+    //
+    // CustomerDB.push(new customer(customerId,customerName,customerAddress,customerSalary));
+    // setCmbDataCustomer("<option>" + customerId + "</option>");
+    // console.log(customer);
 
+    var data = $("#customerForm").serialize();
+    $.ajax({
+        url: "customer",
+        method:"POST",
+        success:function (add){
+            alert(add);
+            loadAllCustomer();
 
+        }
+    })
 
-    CustomerDB.push(new customer(customerId,customerName,customerAddress,customerSalary));
-    setCmbDataCustomer("<option>" + customerId + "</option>");
-    console.log(customer);
 }
 
 
