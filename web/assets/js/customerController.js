@@ -301,23 +301,46 @@ $("#selecterow").on('click','.deleteCustomer',function(){
 
 //-------UpdateCustomer---------
 $("#updateCustomer").click(function(){
-  console.log("Enter");
-    let cusId=$("#txtCustomerId").val();
-    let cusName=$("#txtCustomerName").val();
-    let cusAddress=$("#txtCustomerAddress").val();
-    let cusSalary=$("#txtCustomerSalary").val();
+  // console.log("Enter");
 
-    for(var i=0;i<CustomerDB.length;i++){
-      
-      if($("#txtCustomerId").val()==CustomerDB[i].getCusId()){
-        
-        CustomerDB[i].setCusId(cusId);
-        CustomerDB[i].setCusName(cusName);
-        CustomerDB[i].setCusAddress(cusAddress);
-        CustomerDB[i].setCusSalary(cusSalary);
-      }
+  var custOb = {
+      cusId : $("#txtCustomerId").val(),
+      cusName : $("#txtCustomerName").val(),
+      cusAddress : $("#txtCustomerAddress").val(),
+      cusSalary : $("#txtCustomerSalary").val()
+  }
 
-    }
+   $.ajax({
+     url: "customer",
+     method:"PUT",
+     contentType:"application/json",
+     data: JSON.stringify(custOb),
+     success:function (updates){
+
+
+       if(updates.status==200){
+            alert(updates.message);
+
+       }else if(updates.status==400){
+         alert(updates.message);
+
+       }else {
+         alert(updates.data);
+       }
+     }
+   })
+
+    // for(var i=0;i<CustomerDB.length;i++){
+    //
+    //   if($("#txtCustomerId").val()==CustomerDB[i].getCusId()){
+    //
+    //     CustomerDB[i].setCusId(cusId);
+    //     CustomerDB[i].setCusName(cusName);
+    //     CustomerDB[i].setCusAddress(cusAddress);
+    //     CustomerDB[i].setCusSalary(cusSalary);
+    //   }
+    //
+    // }
     loadAllCustomer();
 
 })

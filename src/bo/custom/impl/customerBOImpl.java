@@ -7,10 +7,19 @@ import dao.custom.impl.customerDAOImpl;
 import dto.customerDTO;
 import entity.customer;
 
+import javax.json.JsonArrayBuilder;
 import java.sql.SQLException;
 
 public class customerBOImpl implements customerBO {
+
     private final customerDAOImpl cusDAOImpl = (customerDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
+
+
+
+    @Override
+    public JsonArrayBuilder getAllCustomer() throws SQLException, ClassNotFoundException {
+
+    }
 
     @Override
     public boolean addCustomer(customerDTO c) throws SQLException, ClassNotFoundException {
@@ -20,8 +29,9 @@ public class customerBOImpl implements customerBO {
     }
 
     @Override
-    public boolean updateCustomer(customerDTO customerDTO) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean updateCustomer(customerDTO c) throws SQLException, ClassNotFoundException {
+        customer customer = new customer(c.getCustID(),c.getCustName(),c.getCustAddress(),c.getSalary());
+        return cusDAOImpl.update(customer);
     }
 
     @Override
