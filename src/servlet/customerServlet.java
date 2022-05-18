@@ -2,6 +2,7 @@ package servlet;
 
 import bo.BOFactory;
 import bo.custom.customerBO;
+import bo.custom.impl.customerBOImpl;
 import dto.customerDTO;
 
 import javax.annotation.Resource;
@@ -22,7 +23,7 @@ public class customerServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     public static DataSource dataSource;
 
-    private final customerBO cusBO = (customerBO) BOFactory.getBOFactory().getBO(BOFactory.BoTypes.CUSTOMER);
+    private final customerBOImpl cusBO = (customerBOImpl) BOFactory.getBOFactory().getBO(BOFactory.BoTypes.CUSTOMER);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -156,6 +157,44 @@ public class customerServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
-        if()
+        try {
+            if(cusBO.deleteCustomer(custID)){
+                JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+                jsonObjectBuilder.add("status",200);
+                jsonObjectBuilder.add("message","Delete Customer..");
+                jsonObjectBuilder.add("data","");
+                writer.print(jsonObjectBuilder.build());
+
+            }else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                objectBuilder.add("status",400);
+                objectBuilder.add("message","Not customer Delete..");
+                objectBuilder.add("data","");
+                writer.print(objectBuilder.build());
+
+            }
+
+
+        } catch (SQLException e) {
+            resp.setStatus(200);
+            e.printStackTrace();
+            JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+            jsonObjectBuilder.add("status",500);
+            jsonObjectBuilder.add("message","Delete customer..");
+            jsonObjectBuilder.add("data",e.getLocalizedMessage());
+            writer.print(jsonObjectBuilder.build());
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            resp.setStatus(200);
+            //e.printStackTrace();
+            JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
+            jsonObjectBuilder.add("status",500);
+            jsonObjectBuilder.add("message","Delete customer..");
+            jsonObjectBuilder.add("data",e.getLocalizedMessage());
+            writer.print(jsonObjectBuilder.build());
+
+        }
     }
 }

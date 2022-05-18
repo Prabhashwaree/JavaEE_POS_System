@@ -117,7 +117,7 @@ body{
                 <a class="nav-link" style="color: white;" href="#">Order</a>
               </li>
               <li id="Btn2ItemDetails" class="nav-item">
-                <a class="nav-link" style="color: white;" href="#">Item</a>
+                <a onclick="itemFirstLoad()" class="nav-link" style="color: white;" href="#">Item</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" style="color: white;" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -495,23 +495,23 @@ body{
                 </div>
               </div>
   
-              <form class="row g-2 pt-2 pb-5">
+              <form class="row g-2 pt-2 pb-5" id="itemForm">
                 
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="txtItemCode" placeholder="Item Code">
+                    <input type="text" name="itemCode" class="form-control" id="txtItemCode" placeholder="Item Code">
                     <p><small id="errors" class="text-danger pl-1"></small></p>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" class="form-control" id="txtItemName" placeholder="Item Name">
+                    <input type="text" name="itemName" class="form-control" id="txtItemName" placeholder="Item Name">
                     <p><small id="errors1" class="text-danger pl-1"></small></p>
                   </div>
   
                   <div class="col-md-6 pt-3">
-                    <input type="text" class="form-control" id="txtItemPrice" placeholder="Item Price">
+                    <input type="text" name="itemPrice" class="form-control" id="txtItemPrice" placeholder="Item Price">
                     <p><small id="errors2" class="text-danger pl-1"></small></p>
                   </div>
                   <div class="col-md-6 pt-3">
-                    <input type="text" class="form-control" id="txtItemQuantity" placeholder="Item Quantity">
+                    <input type="text" name="itemQTY" class="form-control" id="txtItemQuantity" placeholder="Item Quantity">
                     <p><small id="errors3" class="text-danger pl-1"></small></p>
                   </div>
                 </form>

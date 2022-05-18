@@ -3,10 +3,12 @@ package bo.custom;
 import bo.superBO;
 import dto.itemDTO;
 
+import javax.json.JsonArrayBuilder;
 import java.sql.SQLException;
 
 public interface itemBO extends superBO {
-//    ObservableList<itemTm> getAllItem()throws SQLException, ClassNotFoundException;
+
+    JsonArrayBuilder getAllItem() throws SQLException, ClassNotFoundException;
 
     boolean addItem(itemDTO itemDTO) throws SQLException, ClassNotFoundException;
 
