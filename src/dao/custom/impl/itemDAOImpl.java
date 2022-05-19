@@ -3,6 +3,7 @@ package dao.custom.impl;
 import dao.custom.itemDAO;
 import entity.item;
 import servlet.customerServlet;
+import servlet.itemServlet;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -17,7 +18,7 @@ public class itemDAOImpl implements itemDAO {
 
     @Override
     public boolean add(item i) throws SQLException, ClassNotFoundException {
-        Connection connection = customerServlet.dataSource.getConnection();
+        Connection connection = itemServlet.dataSource.getConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Item VALUES (?,?,?,?)");
         preparedStatement.setString(1,i.getItemCode());
@@ -42,7 +43,7 @@ public class itemDAOImpl implements itemDAO {
 
     @Override
     public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        Connection connection = customerServlet.dataSource.getConnection();
+        Connection connection = itemServlet.dataSource.getConnection();
 
         if(connection.prepareStatement("DELETE FROM Item WHERE ItemCode ='"+s+"'").executeUpdate()>0){
             connection.close();
@@ -56,7 +57,7 @@ public class itemDAOImpl implements itemDAO {
 
     @Override
     public boolean update(item i) throws SQLException, ClassNotFoundException {
-        Connection connection = customerServlet.dataSource.getConnection();
+        Connection connection = itemServlet.dataSource.getConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Item SET ItemName = ?,Price = ?,Qty = ? WHERE ItemCode = ?");
         preparedStatement.setString(1,i.getItemName());
@@ -83,7 +84,7 @@ public class itemDAOImpl implements itemDAO {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
 
-        Connection connection = customerServlet.dataSource.getConnection();
+        Connection connection = itemServlet.dataSource.getConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Item");
         ResultSet resultSet = preparedStatement.executeQuery();

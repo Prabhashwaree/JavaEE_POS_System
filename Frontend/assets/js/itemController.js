@@ -190,7 +190,7 @@ function searchItem(code){
 function saveItem(){
     var data = $("#itemForm").serialize();
     $.ajax({
-        url: "item",
+        url: "http://localhost:8080/pos/item",
         method:"POST",
         data:data,
         success:function (add){
@@ -212,14 +212,14 @@ function loadAllItem(){
   $("#selecterowItem").empty();
 
     $.ajax({
-        url: "customer",
+        url: "http://localhost:8080/pos/item",
         method:"GET",
         success:function (load){
 
             for(var i of load.data){
 
-                let itemData=`<tr><td>${i.code}</td>
-                <td>${i.name}</td>
+                let itemData=`<tr><td>${i.itemCode}</td>
+                <td>${i.itemName}</td>
                 <td>${i.price}</td>
                 <td>${i.qty}</td>
                 <td><button  type="button" class="btn-sm border btn-primary updateItems" id="updateItems" style="height: 9%;"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

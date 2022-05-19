@@ -42,24 +42,35 @@ function qtyReduce(orderQty){
 $("#cmbCusId").append("<option> Select ID </option>");
 
 
-$("#cmbCusId").change(function(){
+$("#cmbCusId").click(function(){
     // alert("hello");
-    let customerId =  $("#cmbCusId").val(); 
-    // let cusName= $("#txtCusName").val();
-    // let cusAddress=$("#txtCusAddress").val();
-    // let cusSalary=$("#txtCusSalary").val();
+    // console.log("hello");
+    let customerId =  $("#cmbCusId").val();
+   // $("#cmbCusId").empty();
+   $.ajax({
+       url: "http://localhost:8080/pos/customer",
+       method:"GET",
+       success:function (cusId){
+           for (const i of cusId.data) {
+               setCmbDataCustomer("<option>"+i.id+"</option>");
 
-    for(var i=0;i<CustomerDB.length;i++){
-        if(CustomerDB[i].getCusId()==customerId){
-            let cusName=CustomerDB[i].getCusName();
-            let cusAddress=CustomerDB[i].getCusAddress();
-            let cusSalary=CustomerDB[i].getCusSalary();
-           
-            $("#txtCusName").val(cusName);
-            $("#txtCusAddress").val(cusAddress);
-            $("#txtCusSalary").val(cusSalary);
-        }
-    }
+               if (i.id==customerId){
+                   cusName=i.name;
+                   cusAddress=i.address;
+                   cusSalary=i.salary;
+
+                   console.log(i.id);
+
+
+                   $("#txtCusName").val(cusName);
+                   $("#txtCusAddress").val(cusAddress);
+                   $("#txtCusSalary").val(cusSalary);
+
+               }
+           }
+       }
+   })
+
 });
 
 function setCmbDataCustomer(customerData){
@@ -72,22 +83,32 @@ function setCmbDataCustomer(customerData){
 $("#cmbItemCode").append("<option> Select Code </option>");
 
 $("#cmbItemCode").click(function(){
-    let itemsCode =  $("#cmbItemCode").val(); 
-    // let itemsName= $("#txtNameItem").val();
-    // let itemsPrice=$("#txtPriceItem").val();
-    // let itemsQtyHand=$("#txtQtyHandItem").val();
+    let itemsCode =  $("#cmbItemCode").val();
 
-    for(var i=0;i<ItemDB.length;i++){
-        if(ItemDB[i].getItemCode()==itemsCode){
-            let itemsName=ItemDB[i].getItemName();
-            let itemsPrice=ItemDB[i].getItemPrice();
-            let itemsQtyHand=ItemDB[i].getItemQuantity();
 
-            $("#txtNameItem").val(itemsName);
-            $("#txtPriceItem").val(itemsPrice);
-            $("#txtQtyHandItem").val(itemsQtyHand);
+    $("#cmbItemCode").empty();
+
+
+    $.ajax({
+        url:"http://localhost:8080/pos/item",
+        method:"GET",
+        success:function (responce){
+            for (const i of responce.data) {
+                setCmbDataItem("<option>"+i.itemCode+"</option>");
+
+                if (i.itemCode==itemsCode){
+                    itemNames=i.itemName;
+                    itemPrice=i.price;
+                    itemQTY=i.qty;
+
+
+                    $("#txtNameItem").val(itemNames);
+                    $("#txtPriceItem").val(itemPrice);
+                    $("#txtQtyHandItem").val(itemQTY);
+                }
+            }
         }
-    }
+    })
 });
 
 function setCmbDataItem(itemData){
@@ -157,18 +178,18 @@ function addToCart(){
     
     calculateTotal($("#txtOrderQtyItem").val(),$("#txtPriceItem").val(),$("#txtDiscount").val());
 
-    for(var i in cartDB){
+    for(var i in crats){
         if(cartDB[i].getcartICode()==itemCode1){
-            var newQty=+cartDB[i].getcartOQty()+ +orderQty1;
+            var newQty=+crats[i].getcartOQty()+ +orderQty1;
             var newTotal=itemPrice1*newQty;
-            cartDB[i].setcartOQty(newQty);
-            cartDB[i].setTotal(newTotal);
+            crats[i].setcartOQty(newQty);
+            crats[i].setTotal(newTotal);
             return;
         }
 
     }
 
-    cartDB.push(new cart(itemCode1,itemName1,itemPrice1,orderQty1,total,discounts));
+    crats.push(new cart(itemCode1,itemName1,itemPrice1,orderQty1,total,discounts));
     console.log("itemCode1,itemName1,orderQty1,itemPrice1,total");
 
 }
@@ -194,7 +215,7 @@ $("#cartTable>tr").click(function(){
 
 function loadAllCartTable(){
     $("#cartTable").empty();
-      for(var i of cartDB){
+      for(var i of crats){
           
         let row = `<tr><td>${i.getcartICode()}</td><td>${i.getcartIName()}</td><td>${i.getcartOQty()}</td><td>${i.getcartIPrice()}</td><td>${i.getTotal()}</td>
         <td><button type="button" class="btn-sm border btn-danger deleteCart" style="background-color: red;"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

@@ -211,7 +211,7 @@ function saveCustomer(){
 
     var data = $("#customerForm").serialize();
     $.ajax({
-        url: "customer",
+        url: "http://localhost:8080/pos/customer",
         method:"POST",
       data:data,
         success:function (add){
@@ -234,7 +234,7 @@ function loadAllCustomer(){
   $("#selecterow").empty();
 
   $.ajax({
-    url: "customer",
+    url: "http://localhost:8080/pos/customer",
     method:"GET",
     success:function (load){
 
@@ -325,7 +325,7 @@ $("#updateCustomer").click(function(){
   }
 
    $.ajax({
-     url: "customer",
+     url: "http://localhost:8080/pos/customer",
      method:"PUT",
      contentType:"application/json",
      data: JSON.stringify(custOb),
