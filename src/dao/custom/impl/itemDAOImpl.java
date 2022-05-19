@@ -25,6 +25,13 @@ public class itemDAOImpl implements itemDAO {
         preparedStatement.setDouble(3,i.getPrice());
         preparedStatement.setString(4,i.getQty());
 
+
+        System.out.println(i.getItemCode());
+        System.out.println(i.getItemName());
+        System.out.println(i.getPrice());
+        System.out.println(i.getQty());
+
+
         if(preparedStatement.executeUpdate()>0){
             connection.close();
             return true;
