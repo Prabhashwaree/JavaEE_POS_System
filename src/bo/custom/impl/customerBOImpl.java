@@ -39,8 +39,4 @@ public class customerBOImpl implements customerBO {
        return cusDAOImpl.delete(id);
     }
 
-    @Override
-    public boolean ifCustomerExit(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 }

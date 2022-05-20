@@ -16,5 +16,5 @@ public interface itemBO extends superBO {
 
     boolean deleteItem(String id) throws SQLException, ClassNotFoundException;
 
-    boolean ifItemExit(String id)throws SQLException, ClassNotFoundException;
+
 }

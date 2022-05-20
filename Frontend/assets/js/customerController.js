@@ -198,16 +198,6 @@ function seachCustomer(id){
 
 
 function saveCustomer(){
-    // var customerId =  $("#txtCustomerId").val();
-    // var customerName=   $("#txtCustomerName").val();
-    // var customerAddress =  $("#txtCustomerAddress").val();
-    // var customerSalary =  $("#txtCustomerSalary").val();
-    //
-    //
-    //
-    // CustomerDB.push(new customer(customerId,customerName,customerAddress,customerSalary));
-    // setCmbDataCustomer("<option>" + customerId + "</option>");
-    // console.log(customer);
 
     var data = $("#customerForm").serialize();
     $.ajax({
@@ -258,10 +248,27 @@ function loadAllCustomer(){
         $('#selecterow').append(data);
 
       }
+      buttonFunctionCliceEvent();
+
     }
   })
 }
 
+
+function buttonFunctionCliceEvent(){
+  $('#selecterow>tr').click(function (){
+      let id = $(this).children().eq(0).text();
+      let name = $(this).children().eq(1).text();
+      let address = $(this).children().eq(2).text();
+      let salary = $(this).children().eq(3).text();
+
+      $("#txtCustomerId").val(id);
+      $("#txtCustomerName").val(name);
+      $("#txtCustomerAddress").val(address);
+      $("#txtCustomerSalary").val(salary);
+
+  });
+}
 
 
 $("#btnCustomerSave").click(function () {
@@ -291,26 +298,51 @@ $("#txtCustomerSalary").css('border','black');
 
 
 // ----select table row data move to text feald------
-$("#selecterow").on('click','.deleteCustomer',function(){
-  
-  var index=0;
-  for(var i=0;i<CustomerDB.length;i++){
-    if($("#txtCustomerId").val()==CustomerDB[i].getCusId()){
-      index=i;
-    }
-  }
+// $("#selecterow").on('click','.deleteCustomer',function(){
+//
+//   var index=0;
+//   for(var i=0;i<CustomerDB.length;i++){
+//     if($("#txtCustomerId").val()==CustomerDB[i].getCusId()){
+//       index=i;
+//     }
+//   }
+//
+//   CustomerDB.splice(index,1);
+//
+//       $("#txtCustomerId").val("");
+//       $("#txtCustomerName").val("");
+//       $("#txtCustomerAddress").val("");
+//       $("#txtCustomerSalary").val("");
+//
+//       $(this).closest('tr').remove();
+//
+//
+// })
 
-  CustomerDB.splice(index,1);
-
-      $("#txtCustomerId").val("");
-      $("#txtCustomerName").val("");
-      $("#txtCustomerAddress").val("");
-      $("#txtCustomerSalary").val("");
-
-      $(this).closest('tr').remove();
 
 
-})
+  $(".deleteCustomer").click(function (){
+    let cusId = $("#txtCustomerId").val();
+
+    $ajax({
+      url: "http://localhost:8080/pos/customer?Cus_ID"+cusId,
+      method:"DELETE",
+      success:function (dele){
+
+        if (dele.status==200){
+            alert(dele.message);
+          loadAllCustomer();
+
+        }else if(dele.status==400){
+          alert(dele.data);
+
+        }else {
+          alert(dele.data);
+        }
+      }
+    })
+  })
+
 
 
 //-------UpdateCustomer---------
@@ -334,6 +366,7 @@ $("#updateCustomer").click(function(){
 
        if(updates.status==200){
             alert(updates.message);
+            loadAllCustomer();
 
        }else if(updates.status==400){
          alert(updates.message);

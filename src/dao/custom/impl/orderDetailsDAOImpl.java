@@ -17,24 +17,23 @@ import java.sql.SQLException;
 public class orderDetailsDAOImpl implements orderDetailsDAO {
     @Override
     public boolean add(orderDetails od) throws SQLException, ClassNotFoundException {
-//        Connection connection = orderDetailsServlet.dataSource.getConnection();
+        Connection connection = orderDetailsServlet.dataSource.getConnection();
 
-//        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `Order Details` VALUES (?,?,?,?,?)");
-//        preparedStatement.setString(1,od.getOrderID());
-//        preparedStatement.setString(2,od.getItemCode());
-//        preparedStatement.setInt(3,od.getOrderqty());
-//        preparedStatement.setDouble(4,od.getDiscount());
-//        preparedStatement.setDouble(5,od.getBalance());
-//
-//
-//        if(preparedStatement.executeUpdate()>0){
-//            connection.close();
-//            return true;
-//        }else {
-//            return false;
-//        }
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `Order Details` VALUES (?,?,?,?,?)");
+        preparedStatement.setObject(1,od.getOrderID());
+        preparedStatement.setObject(2,od.getItemCode());
+        preparedStatement.setObject(3,od.getOrderqty());
+        preparedStatement.setObject(4,od.getDiscount());
+        preparedStatement.setObject(5,od.getBalance());
 
-        return false;
+
+        if(preparedStatement.executeUpdate()>0){
+            connection.close();
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     @Override

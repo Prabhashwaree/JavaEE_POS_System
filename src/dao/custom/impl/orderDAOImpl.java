@@ -84,6 +84,14 @@ public class orderDAOImpl implements orderDAO {
 
     @Override
     public String generateNewOrderId() throws SQLException, ClassNotFoundException {
-        return null;
+        Connection connection = orderServlet.dataSource.getConnection();
+        ResultSet resultSet = connection.prepareStatement("SELECT OrderID FROM `Order` ORDER BY OrderID DESC LIMIT 1").executeQuery();
+        String s = null;
+        if(resultSet.next()){
+            s  = resultSet.getString(1);
+        }
+        connection.close();
+        return s;
+
     }
 }

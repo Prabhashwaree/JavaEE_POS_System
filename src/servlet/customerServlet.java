@@ -154,6 +154,7 @@ public class customerServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String custID = req.getParameter("Cus_ID");
+
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 

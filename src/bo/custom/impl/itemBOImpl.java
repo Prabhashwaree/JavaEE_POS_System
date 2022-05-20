@@ -36,8 +36,4 @@ public class itemBOImpl implements itemBO {
         return itemDAOImpl.delete(id);
     }
 
-    @Override
-    public boolean ifItemExit(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 }
