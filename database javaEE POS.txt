@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `Order Details`;
 CREATE TABLE IF NOT EXISTS `Order Details`(
     OrderID VARCHAR(6),
     ItemCode VARCHAR(6),
-    Orderqty INT,
+    Orderqty VARCHAR(20),
     Discount DOUBLE,
     Balance DOUBLE,
     CONSTRAINT PRIMARY KEY (OrderID,ItemCode),

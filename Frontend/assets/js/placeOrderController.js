@@ -3,19 +3,26 @@ $("#genarateId").text(genarateOrderId());
 console.log("#genarateId");
 
 function genarateOrderId(){
-    try {
-        let lastOId =OrderDB[OrderDB.length - 1].getOrderId();
-        let newOId = parseInt(lastOId.substring(1, 4)) + 1;
-        if (newOId < 10) {
-            $("#genarateId").text("O00" + newOId);
-        } else if (newOId < 100) {
-            $("#genarateId").text("O0" + newOId);
-        } else {
-            $("#genarateId").text("O" + newOId);
-        }
-    } catch (e) {
-        $("#genarateId").text("O001");
+    $.ajax({
+        url: "http://localhost:8080/pos/order",
+        method:"GET",
+        success(genarateId){
+            try {
+                let lastOId =genarateId.data[genarateId.length - 1].oderId;
+                let newOId = parseInt(lastOId.substring(1, 4)) + 1;
+                if (newOId < 10) {
+                    $("#genarateId").text("O00" + newOId);
+                } else if (newOId < 100) {
+                    $("#genarateId").text("O0" + newOId);
+                } else {
+                    $("#genarateId").text("O" + newOId);
+                }
+            } catch (e) {
+                $("#genarateId").text("O001");
+            }
     }
+    })
+
 }
 
 

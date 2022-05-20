@@ -234,13 +234,31 @@ function loadAllItem(){
 
                             $('#selecterowItem').append(itemData);
             }
+            buttonCliceEvent();
         }
     })
   }
 
 
 
-  $(".updateItems").click(function(){
+function buttonCliceEvent(){
+    $('#selecterowItem>tr').click(function (){
+        let code = $(this).children().eq(0).text();
+        let name = $(this).children().eq(1).text();
+        let price = $(this).children().eq(2).text();
+        let qty = $(this).children().eq(3).text();
+
+        $("#txtItemCode").val(code);
+        $("#txtItemName").val(name);
+        $("#txtItemPrice").val(price);
+        $("#txtItemQuantity").val(qty);
+
+    });
+}
+
+
+
+$(".updateItems").click(function(){
 
     alert("hello");
    let iCode=$("#txtItemCode").val();
@@ -261,37 +279,35 @@ function loadAllItem(){
    }
    loadAllItem();
 
- 
 })
-
 
 
 //-------DeleteItem---------
-$("#selecterowItem").on('click','.deleteItem',function(){
-  var index=0;
-  for(var i=0;i<ItemDB.length;i++){
-    if($("#txtCustomerId").val()==ItemDB[i].getItemCode()){
-      index=i;
-    }
-  }
 
-  ItemDB.splice(index,1);
+$(".deleteItem").click(function (){
+    let code = $("#txtItemCode").val();
 
-      $("#txtItemCode").val("");
-      $("#txtItemName").val("");
-      $("#txtItemPrice").val("");
-      $("#txtItemQuantity").val("");
+    $.ajax({
+        url: "http://localhost:8080/pos/item?itemCode"+code,
+        method:"DELETE",
+        success:function (dele){
 
-      $(this).closest('tr').remove();
+            if (dele.status==200){
+                alert(dele.message);
+                loadAllItem();
+
+            }else if(dele.status==400){
+                alert(dele.data);
+
+            }else {
+                alert(dele.data);
+            }
+        }
+    })
 })
 
 
-
-
 //-------UpdateItem---------
-
-
-
 
  $("#btnItemSave").click(function () {
 

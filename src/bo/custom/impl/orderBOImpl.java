@@ -3,14 +3,21 @@ package bo.custom.impl;
 import bo.custom.orderBO;
 import dao.DAOFactory;
 import dao.custom.impl.orderDAOImpl;
+import dao.custom.impl.orderDetailsDAOImpl;
+import dto.orderDetailsDTO;
 import entity.order;
+import entity.orderDetails;
+import servlet.orderServlet;
 
 import javax.json.JsonArrayBuilder;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class orderBOImpl implements orderBO {
 
     orderDAOImpl orderDAO = (orderDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+    orderDetailsDAOImpl orderDetailsDAO = (orderDetailsDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.ORDERDETAIL);
+
 
     @Override
     public String generateNewOrderId() throws SQLException, ClassNotFoundException {
@@ -25,8 +32,30 @@ public class orderBOImpl implements orderBO {
 
     @Override
     public boolean placeOrder(order t) throws SQLException, ClassNotFoundException {
-        order  o = new order(t.getOrderID(),t.getOrderDate(),t.getOrderTime(),t.getCustID());
-        return orderDAO.add(o);
+        Connection connection = orderServlet.dataSource.getConnection();
+
+        connection.setAutoCommit(false);
+        order o = new  order(t.getOrderID(),t.getOrderDate(),t.getOrderTime(),t.getCustID(),t.getArrayList());
+        boolean b = orderDAO.add(o);
+
+        if(!b){
+            connection.rollback();
+            connection.setAutoCommit(true);
+            return false;
+        }
+        for (orderDetailsDTO temp:t.getArrayList()){
+            orderDetails orderDetails = new orderDetails(temp.getOrderID(),temp.getItemCode(),temp.getOrderqty(),temp.getDiscount(),temp.getBalance());
+            boolean details = orderDetailsDAO.add(orderDetails);
+
+            if(! details){
+                connection.rollback();
+                connection.setAutoCommit(true);
+                return false;
+            }
+        }
+        connection.rollback();
+        connection.setAutoCommit(true);
+        return true;
     }
 
 }

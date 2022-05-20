@@ -1,60 +1,60 @@
 package entity;
 
 public class orderDetails {
-    private String OrderID;
-    private String ItemCode;
-    private double Orderqty;
-    private String Discount;
-    private String Balance;
+    private String orderID;
+    private String itemCode;
+    private String orderqty;
+    private double discount;
+    private double balance;
 
     public orderDetails() {
     }
 
-    public orderDetails(String orderID, String itemCode, double orderqty, String discount, String balance) {
-        setOrderID(orderID);
-        setItemCode(itemCode);
-        setOrderqty(orderqty);
-        setDiscount(discount);
-        setBalance(balance);
+    public orderDetails(String orderID, String itemCode, String orderqty, double discount, double balance) {
+        this.setOrderID(orderID);
+        this.setItemCode(itemCode);
+        this.setOrderqty(orderqty);
+        this.setDiscount(discount);
+        this.setBalance(balance);
     }
 
     public String getOrderID() {
-        return OrderID;
+        return orderID;
     }
 
     public void setOrderID(String orderID) {
-        OrderID = orderID;
+        this.orderID = orderID;
     }
 
     public String getItemCode() {
-        return ItemCode;
+        return itemCode;
     }
 
     public void setItemCode(String itemCode) {
-        ItemCode = itemCode;
+        this.itemCode = itemCode;
     }
 
-    public double getOrderqty() {
-        return Orderqty;
+    public String getOrderqty() {
+        return orderqty;
     }
 
-    public void setOrderqty(double orderqty) {
-        Orderqty = orderqty;
+    public void setOrderqty(String orderqty) {
+        this.orderqty = orderqty;
     }
 
-    public String getDiscount() {
-        return Discount;
+    public double getDiscount() {
+        return discount;
     }
 
-    public void setDiscount(String discount) {
-        Discount = discount;
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
-    public String getBalance() {
-        return Balance;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setBalance(String balance) {
-        Balance = balance;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

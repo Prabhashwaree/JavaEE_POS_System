@@ -278,53 +278,20 @@ $("#btnCustomerSave").click(function () {
   loadAllCustomer();
   saveCustomer();
 
-
-
-  // $("#cmbCusId").empty();
-  //   for(var i of CustomerDB){
-  //       let cusIdValue=`<option>${i.id}</option>`;
-
-  //       $("#cmbCusId").append(cusIdValue);
-  //   }
-
-
-
-$("#txtCustomerId").css('border','black');
-$("#txtCustomerName").css('border','black');
-$("#txtCustomerAddress").css('border','black');
-$("#txtCustomerSalary").css('border','black');
+  $("#txtCustomerId").css('border','black');
+  $("#txtCustomerName").css('border','black');
+  $("#txtCustomerAddress").css('border','black');
+  $("#txtCustomerSalary").css('border','black');
 
 
 
 
-// ----select table row data move to text feald------
-// $("#selecterow").on('click','.deleteCustomer',function(){
-//
-//   var index=0;
-//   for(var i=0;i<CustomerDB.length;i++){
-//     if($("#txtCustomerId").val()==CustomerDB[i].getCusId()){
-//       index=i;
-//     }
-//   }
-//
-//   CustomerDB.splice(index,1);
-//
-//       $("#txtCustomerId").val("");
-//       $("#txtCustomerName").val("");
-//       $("#txtCustomerAddress").val("");
-//       $("#txtCustomerSalary").val("");
-//
-//       $(this).closest('tr').remove();
-//
-//
-// })
-
-
+// ----delete------
 
   $(".deleteCustomer").click(function (){
     let cusId = $("#txtCustomerId").val();
 
-    $ajax({
+    $.ajax({
       url: "http://localhost:8080/pos/customer?Cus_ID"+cusId,
       method:"DELETE",
       success:function (dele){
@@ -376,18 +343,6 @@ $("#updateCustomer").click(function(){
        }
      }
    })
-
-    // for(var i=0;i<CustomerDB.length;i++){
-    //
-    //   if($("#txtCustomerId").val()==CustomerDB[i].getCusId()){
-    //
-    //     CustomerDB[i].setCusId(cusId);
-    //     CustomerDB[i].setCusName(cusName);
-    //     CustomerDB[i].setCusAddress(cusAddress);
-    //     CustomerDB[i].setCusSalary(cusSalary);
-    //   }
-    //
-    // }
     loadAllCustomer();
 
 })
@@ -397,34 +352,34 @@ $("#updateCustomer").click(function(){
 
 
 $("#selecterow>tr").click(function(){
-  // console.log(this);
-  var id = $(this).find("td:eq(0)").text();
-  var name = $(this).find("td:eq(1)").text();
-  var address = $(this).find("td:eq(2)").text();
-  var salary = $(this).find("td:eq(3)").text();
+    // console.log(this);
+    var id = $(this).find("td:eq(0)").text();
+    var name = $(this).find("td:eq(1)").text();
+    var address = $(this).find("td:eq(2)").text();
+    var salary = $(this).find("td:eq(3)").text();
 
 
-  console.log(id,name,address,salary);
+    console.log(id,name,address,salary);
 
-$("#txtCustomerId").val(id);
-$("#txtCustomerName").val(name);
-$("#txtCustomerAddress").val(address);
-$("#txtCustomerSalary").val(salary);
+    $("#txtCustomerId").val(id);
+    $("#txtCustomerName").val(name);
+    $("#txtCustomerAddress").val(address);
+    $("#txtCustomerSalary").val(salary);
 
-})
-
-$("")
-
-
+    })
 
 });
 
 
 
-$("#btnCustomerSave").click(function () {
-  $("#txtCustomerId").val('');
-  $("#txtCustomerName").val('');
-  $("#txtCustomerAddress").val('');
-  $("#txtCustomerSalary").val('');
 
-}); 
+  $("#btnCustomerSave").click(function () {
+    $("#txtCustomerId").val('');
+    $("#txtCustomerName").val('');
+    $("#txtCustomerAddress").val('');
+    $("#txtCustomerSalary").val('');
+
+  });
+
+
+
