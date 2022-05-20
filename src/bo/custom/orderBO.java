@@ -1,6 +1,7 @@
 package bo.custom;
 
 import bo.superBO;
+import dto.orderDTO;
 import entity.order;
 
 import javax.json.JsonArrayBuilder;
@@ -11,5 +12,5 @@ public interface orderBO extends superBO {
 
     JsonArrayBuilder getAll() throws SQLException, ClassNotFoundException;
 
-    boolean placeOrder(order t) throws SQLException, ClassNotFoundException;
+    boolean placeOrder(orderDTO t) throws SQLException, ClassNotFoundException;
 }

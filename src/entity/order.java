@@ -7,20 +7,20 @@ import java.util.ArrayList;
 public class order {
     private String orderID;
     private String orderDate;
-    private double orderTime;
+    private String orderTime;
     private String custID;
 
-    private ArrayList<orderDetailsDTO> arrayList;
+    private ArrayList<orderDetailsDTO> orderDetailsDTOS;
 
     public order() {
     }
 
-    public order(String orderID, String orderDate, double orderTime, String custID, ArrayList<orderDetailsDTO> arrayList) {
+    public order(String orderID, String orderDate, String orderTime, String custID, ArrayList<orderDetailsDTO> orderDetailsDTOS) {
         this.setOrderID(orderID);
         this.setOrderDate(orderDate);
         this.setOrderTime(orderTime);
         this.setCustID(custID);
-        this.setArrayList(arrayList);
+        this.setOrderDetailsDTOS(orderDetailsDTOS);
     }
 
     public String getOrderID() {
@@ -39,11 +39,11 @@ public class order {
         this.orderDate = orderDate;
     }
 
-    public double getOrderTime() {
+    public String getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(double orderTime) {
+    public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -55,11 +55,11 @@ public class order {
         this.custID = custID;
     }
 
-    public ArrayList<orderDetailsDTO> getArrayList() {
-        return arrayList;
+    public ArrayList<orderDetailsDTO> getOrderDetailsDTOS() {
+        return orderDetailsDTOS;
     }
 
-    public void setArrayList(ArrayList<orderDetailsDTO> arrayList) {
-        this.arrayList = arrayList;
+    public void setOrderDetailsDTOS(ArrayList<orderDetailsDTO> orderDetailsDTOS) {
+        this.orderDetailsDTOS = orderDetailsDTOS;
     }
 }

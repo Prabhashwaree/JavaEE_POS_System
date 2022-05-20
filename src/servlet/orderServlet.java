@@ -4,6 +4,8 @@ package servlet;
 import bo.BOFactory;
 import bo.custom.impl.orderBOImpl;
 import dto.orderDTO;
+import dto.orderDetailsDTO;
+import entity.order;
 import entity.orderDetails;
 
 import javax.annotation.Resource;
@@ -62,7 +64,7 @@ public class orderServlet extends HttpServlet {
         String cusId = jsonObject.getString("cusId");
 
         JsonArray crat = jsonObject.getJsonArray("crat");
-        ArrayList<orderDetails> orderDetail  = new ArrayList<>();
+        ArrayList<orderDetailsDTO> orderDetail  = new ArrayList<>();
 
         for(int i=0;i<crat.size();i++){
             JsonObject jsonObject1 = crat.getJsonObject(i);
@@ -73,10 +75,39 @@ public class orderServlet extends HttpServlet {
             String discount = jsonObject.getString("discount");
             String balance = jsonObject.getString("balance");
 
-            orderDetail.add(new orderDetails(oId,iCode,qty,Double.parseDouble(discount),Double.parseDouble(balance)));
+            orderDetail.add(new orderDetailsDTO(oId,iCode,qty,Double.parseDouble(discount),Double.parseDouble(balance)));
 
         }
-        orderDTO orderDTO = new orderDTO();
-        
+        orderDTO orderDTO = new orderDTO(orderId,orderDate,orderTime,cusId,orderDetail);
+
+        try {
+            if(orderBO.placeOrder(orderDTO)){
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_CREATED);//201
+                response.add("status", 200);
+                response.add("message", "Done");
+                response.add("data", "Successfully Added");
+                writer.print(response.build());
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 400);
+            response.add("message", "Error");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
+
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 400);
+            response.add("message", "Error");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
+
+        }
     }
 }

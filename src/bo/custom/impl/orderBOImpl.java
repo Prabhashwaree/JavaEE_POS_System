@@ -4,6 +4,7 @@ import bo.custom.orderBO;
 import dao.DAOFactory;
 import dao.custom.impl.orderDAOImpl;
 import dao.custom.impl.orderDetailsDAOImpl;
+import dto.orderDTO;
 import dto.orderDetailsDTO;
 import entity.order;
 import entity.orderDetails;
@@ -31,11 +32,11 @@ public class orderBOImpl implements orderBO {
     }
 
     @Override
-    public boolean placeOrder(order t) throws SQLException, ClassNotFoundException {
+    public boolean placeOrder(orderDTO t) throws SQLException, ClassNotFoundException {
         Connection connection = orderServlet.dataSource.getConnection();
 
         connection.setAutoCommit(false);
-        order o = new  order(t.getOrderID(),t.getOrderDate(),t.getOrderTime(),t.getCustID(),t.getArrayList());
+        order o = new  order(t.getOrderID(),t.getOrderDate(),t.getOrderTime(),t.getCustID(),t.getOrderDetailsDTOS());
         boolean b = orderDAO.add(o);
 
         if(!b){
@@ -43,7 +44,7 @@ public class orderBOImpl implements orderBO {
             connection.setAutoCommit(true);
             return false;
         }
-        for (orderDetailsDTO temp:t.getArrayList()){
+        for (orderDetailsDTO temp:t.getOrderDetailsDTOS()){
             orderDetails orderDetails = new orderDetails(temp.getOrderID(),temp.getItemCode(),temp.getOrderqty(),temp.getDiscount(),temp.getBalance());
             boolean details = orderDetailsDAO.add(orderDetails);
 
