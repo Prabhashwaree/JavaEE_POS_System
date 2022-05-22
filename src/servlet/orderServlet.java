@@ -41,7 +41,7 @@ public class orderServlet extends HttpServlet {
             objectBuilder.add("status",200);
             objectBuilder.add("message","done");
 
-            objectBuilder.add("data",objectBuilder.build());
+            objectBuilder.add("data",all.build());
             writer.print(objectBuilder.build());
 
         } catch (SQLException e) {
@@ -63,19 +63,19 @@ public class orderServlet extends HttpServlet {
         String orderTime = jsonObject.getString("orderTime");
         String cusId = jsonObject.getString("cusId");
 
-        JsonArray crat = jsonObject.getJsonArray("crat");
+        JsonArray crat = jsonObject.getJsonArray("CRAT");
         ArrayList<orderDetailsDTO> orderDetail  = new ArrayList<>();
 
         for(int i=0;i<crat.size();i++){
-            JsonObject jsonObject1 = crat.getJsonObject(i);
-
-            String oId = jsonObject.getString("oId");
-            String iCode = jsonObject.getString("iCode");
-            String qty = jsonObject.getString("qty");
-            String discount = jsonObject.getString("discount");
-            String balance = jsonObject.getString("balance");
-
-            orderDetail.add(new orderDetailsDTO(oId,iCode,qty,Double.parseDouble(discount),Double.parseDouble(balance)));
+//            JsonObject jsonObject1 = crat.getJsonObject(i);
+//
+//            String oId = jsonObject1.getString("oId");
+//            String iCode = jsonObject1.getString("iCode");
+//            String qty = jsonObject1.getString("qty");
+//            String discount = jsonObject1.getString("discount");
+//            String balance = jsonObject1.getString("balance");
+//
+//            orderDetail.add(new orderDetailsDTO(oId,iCode,qty,Double.parseDouble(discount),Double.parseDouble(balance)));
 
         }
         orderDTO orderDTO = new orderDTO(orderId,orderDate,orderTime,cusId,orderDetail);
