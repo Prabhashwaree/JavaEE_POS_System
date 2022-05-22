@@ -12,8 +12,6 @@ public class order {
 
     private ArrayList<orderDetailsDTO> orderDetailsDTOS;
 
-    public order() {
-    }
 
     public order(String orderID, String orderDate, String orderTime, String custID, ArrayList<orderDetailsDTO> orderDetailsDTOS) {
         this.setOrderID(orderID);

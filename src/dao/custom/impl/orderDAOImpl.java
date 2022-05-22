@@ -68,7 +68,8 @@ public class orderDAOImpl implements orderDAO {
             String id = resultSet.getString(4);
 
 
-            objectBuilder.add("oderId", oderId);
+            objectBuilder.add("oId", oderId);
+            System.out.println(objectBuilder.add("oderId", oderId));
             objectBuilder.add("orderDate", orderDate);
             objectBuilder.add("orderTime", orderTime);
             objectBuilder.add("id", id);

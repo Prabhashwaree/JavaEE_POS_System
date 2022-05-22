@@ -10,8 +10,6 @@ public class orderDTO {
 
     private ArrayList<orderDetailsDTO> orderDetailsDTOS;
 
-    public orderDTO() {
-    }
 
     public orderDTO(String orderID, String orderDate, String orderTime, String custID, ArrayList<orderDetailsDTO> orderDetailsDTOS) {
         this.setOrderID(orderID);

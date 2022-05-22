@@ -33,52 +33,63 @@ public class orderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
+
         try {
-            JsonArrayBuilder all = orderBO.getAll();
+            JsonArrayBuilder allItem = orderBO.getAll();
             PrintWriter writer = resp.getWriter();
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-
-            objectBuilder.add("status",200);
-            objectBuilder.add("message","done");
-
-            objectBuilder.add("data",all.build());
+            objectBuilder.add("status", 200);
+            objectBuilder.add("message", "Done");
+            objectBuilder.add("data", allItem.build());
             writer.print(objectBuilder.build());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
         JsonReader jsonReader = Json.createReader(req.getReader());
         JsonObject jsonObject = jsonReader.readObject();
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        String orderId = jsonObject.getString("orderId");
-        String orderDate = jsonObject.getString("orderDate");
-        String orderTime = jsonObject.getString("orderTime");
-        String cusId = jsonObject.getString("cusId");
+        String oId = jsonObject.getString("oId");
+        //System.out.println(orderId);
+        String orderDate = jsonObject.getString("oDate");
+        // System.out.println(orderDate);
+        String orderTime = jsonObject.getString("oTime");
+        //  System.out.println(orderTime);
+        String cusId = jsonObject.getString("cId");
 
-        JsonArray crat = jsonObject.getJsonArray("CRAT");
+
+        JsonArray crats = jsonObject.getJsonArray("crat");
         ArrayList<orderDetailsDTO> orderDetail  = new ArrayList<>();
 
-        for(int i=0;i<crat.size();i++){
-//            JsonObject jsonObject1 = crat.getJsonObject(i);
-//
-//            String oId = jsonObject1.getString("oId");
-//            String iCode = jsonObject1.getString("iCode");
-//            String qty = jsonObject1.getString("qty");
-//            String discount = jsonObject1.getString("discount");
-//            String balance = jsonObject1.getString("balance");
-//
-//            orderDetail.add(new orderDetailsDTO(oId,iCode,qty,Double.parseDouble(discount),Double.parseDouble(balance)));
+        for(int i=0;i<crats.size();i++){
+
+            JsonObject details = crats.getJsonObject(i);
+            System.out.println(details);
+
+
+            String itemCode1 = details.getString("itemCode1");
+            System.out.println(itemCode1);
+            String itName1 = details.getString("itName1");
+            System.out.println(itName1);
+            String orderQty1=details.getString("orderQty1");
+            System.out.println(orderQty1);
+
+            String discounts = details.getString("discounts");
+            System.out.println(discounts);
+            int total2  = details.getInt("total2");
+            System.out.println(total2);
+
+            orderDetail.add(new orderDetailsDTO(oId,itemCode1,orderQty1,Double.parseDouble(discounts),total2));
 
         }
-        orderDTO orderDTO = new orderDTO(orderId,orderDate,orderTime,cusId,orderDetail);
+        orderDTO orderDTO = new orderDTO(oId,orderDate,orderTime,cusId,orderDetail);
 
         try {
             if(orderBO.placeOrder(orderDTO)){
@@ -99,7 +110,6 @@ public class orderServlet extends HttpServlet {
             response.add("data", e.getLocalizedMessage());
             writer.print(response.build());
 
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             JsonObjectBuilder response = Json.createObjectBuilder();
@@ -111,3 +121,4 @@ public class orderServlet extends HttpServlet {
         }
     }
 }
+
