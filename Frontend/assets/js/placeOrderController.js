@@ -9,7 +9,7 @@ function genarateOrderId(){
         method:"GET",
         success(genarate){
             try {
-                let lastOId =genarate.data[genarate.length - 1].oId;
+                let lastOId =genarate.data[genarate.data.length - 1].oId;
                 let newOId = parseInt(lastOId.substring(1, 4)) + 1;
                 console.log(newOId)
                 console.log(lastOId)
