@@ -247,30 +247,31 @@ function buttonCliceEvent(){
     });
 }
 
+$("#btnItemUpdate").click(function(){
 
+    var itemOB={
+        "iCode" :$("#txtItemCode").val(),
+        "itName" :$("#txtItemName").val(),
+        "iPrice":$("#txtItemPrice").val(),
+        "iQuantity":$("#txtItemQuantity").val()
+    }
 
-$("btnItemUpdate").click(function(){
-
-    alert("hello");
-   let iCode=$("#txtItemCode").val();
-   let itName=$("#txtItemName").val();
-   let iPrice=$("#txtItemPrice").val();
-   let iQuantity=$("#txtItemQuantity").val();
-
-   for(var i=0;i<ItemDB.length;i++){
-     
-     if($("#txtItemCode").val()==ItemDB[i].getItemCode()){
-       
-       ItemDB[i].setItemCode(iCode);
-       ItemDB[i].setItemName(itName);
-       ItemDB[i].setItemPrice(iPrice);
-       ItemDB[i].setItemQuantity(iQuantity);
-     }
-
-   }
-   loadAllItem();
-
+    $.ajax({
+        url:"http://localhost:8080/pos/item",
+        method:"PUT",
+        contentType:"application/json",
+        data:JSON.stringify(itemOB),
+        success(resp){
+            if(resp.status==200){
+                loadAllItem();
+                alert(resp.message);
+            }else {
+                alert(resp.data);
+            }
+        }
+    });
 })
+
 
 
 //-------DeleteItem---------

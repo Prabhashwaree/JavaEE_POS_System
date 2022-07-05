@@ -104,10 +104,10 @@ public class customerServlet extends HttpServlet {
         JsonReader jsonReader = Json.createReader(req.getReader());
         JsonObject jsonObject = jsonReader.readObject();
 
-        String cusId = jsonObject.getString("Cus_ID");
-        String cusName = jsonObject.getString("CustName");
-        String cusAddress = jsonObject.getString("CustAddress");
-        String cusSalary = jsonObject.getString("Salary");
+        String cusId = jsonObject.getString("cusId");
+        String cusName = jsonObject.getString("cusName");
+        String cusAddress = jsonObject.getString("cusAddress");
+        String cusSalary = jsonObject.getString("cusSalary");
 
         PrintWriter writer  = resp.getWriter();
         customerDTO cusDTO = new customerDTO(cusId,cusName,cusAddress,Double.parseDouble(cusSalary));

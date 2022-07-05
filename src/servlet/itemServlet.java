@@ -98,14 +98,15 @@ public class itemServlet extends HttpServlet {
         JsonReader jsonReader = Json.createReader(req.getReader());
         JsonObject jsonObject = jsonReader.readObject();
 
-        String code = jsonObject.getString("itemCode");
-        String name = jsonObject.getString("itemName");
-        String price = jsonObject.getString("itemPrice");
-        String qty = jsonObject.getString("itemQTY");
+        String iCode = jsonObject.getString("iCode");
+        String itName = jsonObject.getString("itName");
+        String iPrice = jsonObject.getString("iPrice");
+        String iQuantity = jsonObject.getString("iQuantity");
 
+        itemDTO iDTO = new itemDTO(iCode,itName,Double.parseDouble(iPrice),iQuantity);
 
         PrintWriter writer  = resp.getWriter();
-        itemDTO iDTO = new itemDTO(code,name,Double.parseDouble(price),qty);
+
 
         resp.setContentType("application/json");
 
