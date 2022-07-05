@@ -249,7 +249,7 @@ function buttonCliceEvent(){
 
 
 
-$(".updateItems").click(function(){
+$("btnItemUpdate").click(function(){
 
     alert("hello");
    let iCode=$("#txtItemCode").val();
@@ -275,11 +275,11 @@ $(".updateItems").click(function(){
 
 //-------DeleteItem---------
 
-$(".deleteItem").click(function (){
+$("#btnItemDelete").click(function (){
     let code = $("#txtItemCode").val();
 
     $.ajax({
-        url: "http://localhost:8080/pos/item?itemCode"+code,
+        url: "http://localhost:8080/pos/item?itemCode="+code,
         method:"DELETE",
         success:function (dele){
 

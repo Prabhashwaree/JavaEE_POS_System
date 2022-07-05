@@ -277,11 +277,11 @@ $("#btnCustomerSave").click(function () {
 
 // ----delete------
 
-  $(".deleteCustomer").click(function (){
+  $("#btnCustomerDelete").click(function (){
     let cusId = $("#txtCustomerId").val();
 
     $.ajax({
-      url: "http://localhost:8080/pos/customer?Cus_ID"+cusId,
+      url: "http://localhost:8080/pos/customer?Cus_ID="+cusId,
       method:"DELETE",
       success:function (dele){
 
@@ -302,7 +302,7 @@ $("#btnCustomerSave").click(function () {
 
 
 //-------UpdateCustomer---------
-$("#updateCustomer").click(function(){
+$("btnCusUpdate").click(function(){
   // console.log("Enter");
 
   var custOb = {
